@@ -1,0 +1,42 @@
+.random-planet {
+    display: flex;
+    padding: 1rem;
+    margin: 0 0 2rem;
+    opacity: .8;
+}
+  
+.random-planet .planet-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  margin-right: 1rem;
+}
+  
+.random-planet .list-group {
+  margin: 1rem 0 0 1rem;
+}
+  
+.random-planet .list-group-item {
+  padding: .25rem;
+}
+  
+.random-planet .list-group-item .term {
+  margin-right: .5rem;
+}
+
+@media(max-width:550px) {
+  .random-planet {
+    opacity: 1;
+    order:2;
+    margin-bottom:1rem;
+    flex-direction: column-reverse;
+  }
+  .random-planet .planet-image {
+    width:100%;
+    height:auto;
+    margin-right:0;
+  }
+  .random-planet .list-group {
+    margin-left:0;
+  }
+}

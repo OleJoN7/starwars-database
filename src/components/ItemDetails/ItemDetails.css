@@ -1,0 +1,43 @@
+.item-details {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+}
+  
+.item-details .item-image {
+  width: 30%;
+  height: 30%;
+  border-radius: 10px;
+}
+  
+.item-details .list-group-item {
+  padding: .25rem;
+}
+  
+.item-details .list-group-item .element{
+  margin-right: .5rem;
+}
+.btn-back {
+  cursor: pointer;
+  border: none;
+  background: #da6e0e;
+  color: #fff;
+  padding:3px 15px;
+  text-transform: uppercase;
+  border-radius: 15px;
+  position: absolute;
+  left:15px;
+  top:5px;
+}
+@media(max-width:550px) {
+  .item-details {
+    flex-direction: column-reverse;
+  }
+  .card-body {
+    padding-left:0;
+  }
+  .item-details .item-image {
+    width:100%;
+    height: auto;
+  }
+}
