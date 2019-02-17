@@ -1,6 +1,7 @@
 # starwars-database
 
  Another application based on React: 
+ 
  - This time focused on the work of fetch api (used async / await syntax) for receiving data provided by the swapi.co site.
  - The SwApiService component was created separately in order to make it easier to work with the obtained data.
      - In this component, methods are created that take data for different tasks and these methods are passed directly
