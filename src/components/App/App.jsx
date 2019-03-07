@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
-import {Route, Switch,Redirect} from 'react-router-dom';
+import {Route, Switch,Redirect,withRouter} from 'react-router-dom';
+import PrivateRoute from '../PrivateRoute';
 import SwApiService from '../../services/SwApiService';
 import Header from '../Header';
 import ErrorCatcher from '../ErrorCatcher';
@@ -11,22 +12,77 @@ import {PersonDetails} from '../sw-components/Details';
 import {StarshipDetails} from '../sw-components/Details';
 import {PlanetDetails} from '../sw-components/Details';
 import ChooseDetail from '../ChooseDetail';
+import Signin from '../../pages/Signin';
+import Register from '../../pages/Register';
+import Logout from '../../pages/Logout';
 
 import './App.css';
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null
+    }
+  }
   swapiService = new SwApiService();
+
+  loadUser = (data) => {
+    this.setState({
+      user: {
+        id:data.id,
+        name:data.name,
+        email:data.email,
+        joined:data.joined
+      }
+    },() => this.props.history.push('/people') )
+    console.log(this.state.user)
+  }
+  logoutUser = () => {
+    this.setState({user:null},() => this.props.history.push('/'))
+  }
+ 
   render() {
     return (
       <div className="main-container">
         <ErrorCatcher>
-          <Header />
+          <Header user={this.state.user}/>
           <Switch>
             <Route exact path="/" render={() => <HomePage/>}/>
-            <Route exact path="/people" component={PeoplePage}/>
-            <Route exact path="/planets" component={PlanetsPage}/>
-            <Route exact path="/starships" component={StarshipsPage}/>
+            <Route 
+              exact
+              path="/signin" 
+              render={() => <Signin loadUser={this.loadUser} />}
+            />
+            <Route 
+              exact 
+              path="/logout" 
+              render={() => <Logout logoutUser={this.logoutUser}/>} 
+            />
+            <Route 
+              exact 
+              path="/register" 
+              render={() => <Register loadUser={this.loadUser} />}
+            />  
+            <PrivateRoute 
+              exact 
+              path="/people" 
+              component={PeoplePage}
+              user={this.state.user}
+            />
+            <PrivateRoute 
+              exact 
+              path="/planets" 
+              component={PlanetsPage} 
+              user={this.state.user}
+            />
+            <PrivateRoute 
+              exact 
+              path="/starships" 
+              component={StarshipsPage}
+              user={this.state.user}
+            />
             <Route path="/starships/:id" render={props => { 
                 return (
                   <StarshipDetails itemId={props.match.params.id}>
@@ -72,4 +128,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

@@ -3,7 +3,7 @@ import ToolbarLink from '../ToolbarLink';
 
 import './Header.css';
 
-const Header = () => {
+const Header = ({user}) => {
   return (
     <div className="header d-flex">
       <h3>
@@ -18,6 +18,13 @@ const Header = () => {
         </li>
         <li>
           <ToolbarLink to="/starships/">Starships</ToolbarLink>
+        </li>
+        <li>
+          {user ?
+            <ToolbarLink to="/logout">Logout</ToolbarLink>
+            :
+            <ToolbarLink to="/signin">Sign In</ToolbarLink>
+          }
         </li>
       </ul>
     </div>
